@@ -41,6 +41,28 @@
           inherit buildInputs nativeBuildInputs;
         };
 
+        packages.cargoDeps =
+          pkgs.runCommand "rust_workspace_inheritance_test-vendor"
+            {
+              nativeBuildInputs = with pkgs; [
+                cargo
+                cacert
+              ];
+
+              outputHash = "sha256-c8G8MDmdeE7XhmHU9KYPMtHpImilOeJ6/MNobIo7YWU=";
+              outputHashMode = "recursive";
+            }
+            ''
+              export HOME=`mktemp -d`
+              cargo vendor \
+                -Z unstable-options \
+                --locked \
+                --versioned-dirs \
+                --manifest-path ${./.}/Cargo.toml \
+                --lockfile-path ${./.}/Cargo.lock \
+                $out
+            '';
+
         devShells.default = pkgs.mkShell {
           inherit buildInputs nativeBuildInputs;
         };
