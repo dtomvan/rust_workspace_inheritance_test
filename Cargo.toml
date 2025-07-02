@@ -4,4 +4,4 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-avian2d = { git = "https://github.com/Jondolf/avian.git", tag = "v0.2.0" }
+avian2d = "0.2.0"
